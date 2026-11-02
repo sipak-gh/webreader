@@ -1,0 +1,328 @@
+/*
+ * Styles for the app's own page: toolbar, welcome screen and status messages.
+ * Book content is styled separately by reader.css inside the reader frame.
+ */
+
+/* Theme: sepia paper, dark brown ink. Keep in sync with reader.css. */
+:root {
+  --paper: #f4ecd8;
+  --ink: #3b2f22;
+  --bar: #ebe0c5;
+  --rule: #d4c39c;
+  --accent: #8a4b1f;
+  --serif: "Junicode", "EB Garamond", Garamond, Georgia, serif;
+  --sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Full-height column: toolbar on top, the stage fills the rest (dvh avoids mobile URL-bar jumps). */
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1rem;
+}
+
+button,
+select,
+input {
+  font: inherit;
+  color: inherit;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  min-height: 2rem;
+  cursor: pointer;
+}
+
+input {
+  cursor: text;
+}
+
+button:hover:not(:disabled),
+select:hover,
+input:hover {
+  border-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/*
+ * Toolbar: one row on every screen size: ☰ ‹ [chapter] ›, then (on wide screens) the text
+ * settings on the right. Its height never changes, so the reader below keeps its size; the
+ * menu drops down over the reader.
+ */
+.toolbar {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  background: var(--bar);
+  border-bottom: 1px solid var(--rule);
+}
+
+.chapter-controls {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+#prev-button,
+#next-button {
+  flex: none;
+  padding: 0 0.7rem;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* The contents list doubles as the chapter title: it shows the current chapter's name. */
+#toc {
+  flex: 1;
+  min-width: 0;
+  text-overflow: ellipsis;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  background: transparent;
+  border-color: transparent;
+}
+
+/* The app's name, while no book is open (the chapter controls are hidden). */
+.app-name {
+  flex: 1;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+}
+
+.chapter-controls:not([hidden]) + .app-name {
+  display: none;
+}
+
+.menu-button {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.45rem;
+}
+
+.menu-button[aria-expanded="true"] {
+  border-color: var(--accent);
+}
+
+/* Text settings: font, layout and size. */
+.prefs {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* On phones the text settings live in the menu (app.js moves them there); this hides
+   them before app.js runs. */
+@media (max-width: 799.98px) {
+  .toolbar > .prefs {
+    display: none;
+  }
+}
+
+.menu .prefs {
+  flex-wrap: wrap;
+}
+
+/* Drop-down menu, under the menu button (full width on phones). */
+.menu {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0.5rem;
+  width: min(24rem, calc(100vw - 1rem));
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.75rem;
+  background: var(--bar);
+  border: 1px solid var(--rule);
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 16px rgb(0 0 0 / 0.15);
+}
+
+/* The open book: "Title — Author" and "chapter / total" (both empty with no book). */
+.menu-book {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.menu-book:has(.book-title:empty) {
+  display: none;
+}
+
+.book-title {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+}
+
+.menu-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Link bar: paste an EPUB URL and press Enter or Go. */
+.url-form {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.url-form input {
+  flex: 1;
+  min-width: 0;
+}
+
+.position {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+#font-button {
+  min-width: 4.5rem;
+}
+
+#font-button[data-font="serif"] {
+  font-family: var(--serif);
+}
+
+#columns-button {
+  min-width: 3.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Current text size between A− and A+. */
+.size-label {
+  min-width: 2.75rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* The area below the toolbar holding the welcome screen, the reader frame and the status toast. */
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+#reader {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Welcome screen, shown when no book is open. */
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+}
+
+.welcome h1 {
+  margin: 0 0 0.5rem;
+  font-weight: 500;
+  font-size: 2.5rem;
+}
+
+.welcome p {
+  margin: 0.4rem 0;
+}
+
+.welcome .hint {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+button.primary {
+  font-family: var(--sans);
+  padding: 0.5rem 1.25rem;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+
+/* Drop target highlight while a file is dragged over the page (toggled by app.js). */
+body.dragging .stage {
+  outline: 3px dashed var(--accent);
+  outline-offset: -0.75rem;
+}
+
+/* Status toast (loading, download progress, errors); see showStatus() in app.js. */
+.status {
+  position: absolute;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  max-width: calc(100% - 2rem);
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+}
+
+.status.error {
+  background: #8b1e1e;
+}
+
+/* Covers the reader while the menu is open; tapping it closes the menu. */
+.menu-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgb(59 47 34 / 0.15);
+}

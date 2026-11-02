@@ -1,0 +1,240 @@
+/*
+ * Styles for book content inside the sandboxed reader frame. The book's own CSS is
+ * removed (see prepareContent in js/reader.js), so these are the only styles applied.
+ *
+ * The chapter is shown either as fixed-size pages of 1–4 columns, where nothing scrolls,
+ * or as one long scrolling page. In the page layout js/reader.js sets the page geometry
+ * (position and size of #webreader-page, width, height and column count of
+ * #webreader-content). It sets these on <html>:
+ *   data-layout     "pages" or "scroll"
+ *   --font-size     body text size from the A− / A+ buttons (default 12pt)
+ *   --page-height   height of one page (or the screen, when scrolling) in px, used to
+ *                   keep images within a page
+ *   data-font       "serif" (default) or "sans"
+ *   data-justify    present when text is justified (then set by Justif; see js/typeset.js)
+ */
+
+:root {
+  --paper: #f4ecd8;
+  --ink: #3b2f22;
+  --rule: #d4c39c;
+  --accent: #8a4b1f;
+  --serif: "Junicode", "EB Garamond", Garamond, Georgia, serif;
+  --sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html[data-font="sans"] {
+  font-family: var(--sans);
+}
+
+/* No scrolling: the page is a fixed viewport and the reader turns pages. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  font-size: var(--font-size, 12pt);
+  line-height: 1.55;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+
+/* Covers the frame and receives clicks and touches (iOS doesn't send taps on text to the
+   document, nor touches to a frame's document). */
+#webreader-root {
+  position: relative;
+  height: 100%;
+}
+
+/* Clips the chapter to exactly one page. */
+#webreader-page {
+  position: absolute;
+  overflow: hidden;
+}
+
+/* The chapter, flowed into columns. Columns past the first page overflow to the right
+   and are brought into view by a translateX transform. */
+#webreader-content {
+  column-fill: auto;
+  overflow: visible;
+}
+
+/* "Page 2 of 9" under the page. Not scaled with the text size. */
+#webreader-folio {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.85rem;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Scroll layout: the document scrolls, with no page number. On phones the text goes almost
+   edge to edge; on wider screens it is a centred column 90% of the width, like pages. */
+html[data-layout="scroll"] {
+  overflow-y: auto;
+}
+
+html[data-layout="scroll"] body,
+html[data-layout="scroll"] #webreader-root {
+  height: auto;
+  overflow: visible;
+}
+
+/* Fills the screen under short chapters, so swipes anywhere reach its listeners. */
+html[data-layout="scroll"] #webreader-root {
+  min-height: 100vh;
+}
+
+html[data-layout="scroll"] #webreader-page {
+  position: static;
+  overflow: visible;
+  padding: 1.25rem 8px 3rem;
+}
+
+@media (min-width: 800px) {
+  html[data-layout="scroll"] #webreader-content {
+    max-width: 90vw;
+    margin: 0 auto;
+  }
+}
+
+html[data-layout="scroll"] #webreader-folio {
+  display: none;
+}
+
+/* Book typography: paragraphs, headings, links, media, quotes, code and tables. */
+p {
+  margin: 0 0 0.9em;
+}
+
+/* Keep in step with JUSTIFIED in js/reader.js: Justif re-sets those elements, whatever their alignment. */
+html[data-justify] :is(p, li, dd, blockquote) {
+  text-align: justify;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.25;
+  font-weight: 600;
+  margin: 1.6em 0 0.7em;
+  hyphens: manual;
+  /* Keep headings with the text that follows them. */
+  break-after: avoid;
+  break-inside: avoid;
+}
+
+h1 {
+  font-size: 1.8em;
+}
+
+h2 {
+  font-size: 1.45em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+h4,
+h5,
+h6 {
+  font-size: 1em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+/* Images, covers and video must fit within one column of one page. */
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  max-height: calc(var(--page-height, 90vh) - 2em);
+  height: auto;
+  margin: 1em auto;
+  object-fit: contain;
+  break-inside: avoid;
+}
+
+/* Images used inline in text (e.g. drop caps, symbols). */
+p img,
+span img {
+  display: inline;
+  margin: 0;
+  vertical-align: middle;
+}
+
+blockquote {
+  margin: 1em 0;
+  padding-left: 1.25em;
+  border-left: 3px solid var(--rule);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2em auto;
+  width: 40%;
+}
+
+pre,
+code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+
+pre {
+  white-space: pre-wrap;
+  background: rgb(0 0 0 / 0.04);
+  padding: 0.75em 1em;
+  border-radius: 0.3em;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 1em 0;
+  max-width: 100%;
+}
+
+td,
+th {
+  border: 1px solid var(--rule);
+  padding: 0.3em 0.6em;
+  vertical-align: top;
+}
+
+sup,
+sub {
+  line-height: 0;
+}
+
+::selection {
+  background: rgb(138 75 31 / 0.25);
+}

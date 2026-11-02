@@ -1,0 +1,35 @@
+/* Junicode 2 — SIL Open Font License 1.1, see fonts/junicode/OFL.txt */
+@font-face {
+  font-family: "Junicode";
+  src: url("../fonts/junicode/JunicodeVF-Roman.woff2") format("woff2");
+  font-weight: 300 700;
+  font-stretch: 75% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Junicode";
+  src: url("../fonts/junicode/JunicodeVF-Italic.woff2") format("woff2");
+  font-weight: 300 700;
+  font-stretch: 75% 125%;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Source Sans 3 — SIL Open Font License 1.1, see fonts/source-sans/LICENSE.md */
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../fonts/source-sans/SourceSans3VF-Upright.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../fonts/source-sans/SourceSans3VF-Italic.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: swap;
+}

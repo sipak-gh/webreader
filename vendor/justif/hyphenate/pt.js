@@ -1,0 +1,12 @@
+import { createHyphenator } from '../chunk-ZW2EUTPS.js';
+
+// src/hyphenation/pt.ts
+var packed = "0.g2no 4\xF3 4\xF4 1m2n 1ne4o 1p2si 4\xED 3t 1s2 2u3b4li 1t2 3m 01- 1b2l 3r 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1c2h 3l 3r 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1d2l 3r 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1f2l 3r 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1g2l 3r 2a 2e 2i 2o 2u 32\xE1 4\xE3 4\xE9 4\xEA 4\xED 34a 4e 4i 4o 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1ja 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF5 2\xFA 1k2l 3r 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF5 2\xFA 1l2h 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1ma 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1n2h 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1p2l 3neu 3r 3seu1d 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1qu 32\xE1 4\xE2 4\xE3 4\xE9 4\xEA 4\xED 34a 4e 4i 4o 1ra 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1sa 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1t2l 3r 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1v2l 3r 2a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1w2l 3r 1xa 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1za 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 1\xE7a 2e 2i 2o 2u 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xF5 2\xFA 04a. 1e. 1o. 0a1i1nh 3nd 3r. 3z. 2\xE2 2\xE3 2\xE9 2\xED 2\xF3 2\xF4 2\xFA 13a 2e 2o 1u1i 0bu1i 0c2za 13c 1o2ima 0do1im 1u1i 0e1imp 3nc 4f 4g 4s 4t 4v 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 2\xF4 2\xFA 13a 2e 2o 0fu1i 0i1u 2\xE1 2\xE3 2\xE9 2\xED 2\xF3 2\xFA 13a 2e 2i 2o 2\xE2 2\xEA 2\xF4 0ju1i 0nu1i 0o1im 3n 2\xE1 2\xE3 2\xE9 2\xEA 2\xED 2\xF3 12i1na 13a 2e 2o 0pro1i1b 0r3r 0s3s 1u1i 22b3l 5r 0t2c 1u1i 22id 4t 0u1i1\xE7 3n 3r. 3z. 2\xE1 2\xE2 2\xE3 2\xE9 2\xEA 2\xED 13a 2e 2o 2u 0\xE91o 0\xED1a 2e 2o 0\xFA1o";
+var exceptions = "hard-ware soft-ware";
+var hyphenatePt = createHyphenator({
+  packed,
+  exceptions,
+  leftmin: 2,
+  rightmin: 3
+});
+export { hyphenatePt };
